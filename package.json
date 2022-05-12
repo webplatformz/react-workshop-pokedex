@@ -1,6 +1,7 @@
 {
   "name": "react-workshop-pokedex",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Demo application for the essential react course.",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -10,9 +11,14 @@
     "@types/node": "^16.11.34",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
+    "classnames": "2.3.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-hook-form": "^7.31.1",
+    "react-router-dom": "6.2.1",
     "react-scripts": "5.0.1",
+    "sass": "^1.51.0",
+    "swr": "1.2.2",
     "typescript": "^4.6.4",
     "web-vitals": "^2.1.4"
   },

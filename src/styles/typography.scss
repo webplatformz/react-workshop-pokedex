@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'pokemon-font';
+  src: url('fonts/pokemon-font.woff2') format('woff2')
+}
+
+body {
+  font-size: 16px;
+  font-family: 'pokemon-font', monospace;
+}

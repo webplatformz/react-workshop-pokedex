@@ -1,0 +1,18 @@
+.root {
+  padding-bottom: var(--poke-spacing-1);
+}
+
+.label {
+  padding-right: var(--poke-spacing-1);
+
+  font-weight: bold;
+  font-size: large;
+}
+
+.inputError {
+  border: 2px solid red;
+}
+
+.errorMessage {
+  padding-left: var(--poke-spacing-1);
+}

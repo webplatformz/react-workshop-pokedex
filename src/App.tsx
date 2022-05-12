@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+import ErrorBoundary from "./core/error-boundary/ErrorBoundary";
+import Header from "./core/header/Header";
+import DetailPage from "./pages/detail/DetailPage";
+import ControlledFormDemoPage from "./pages/form-demo/ControlledFormDemo";
+import UncontrolledFormDemoPage from "./pages/form-demo/UncontrolledFormDemo";
+import ListPage from "./pages/list/ListPage";
+import ProfilePage from "./pages/profile/ProfilePage";
+import usePokeVisit from "./service/poke/usePokeVisit";
+import UserContext, { UserData } from "./service/user/UserContext";
+import "./styles/global.scss";
 
-function App() {
+export default function App() {
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [state, dispatch] = usePokeVisit();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ErrorBoundary>
+      <UserContext.Provider value={{ userData, setUserData }}>
+        <Router>
+          <Header
+            visitedPokemon={state.size}
+            resetPokeVisitDispatch={dispatch}
+          />
+          <Routes>
+            <Route path="/pokemon" element={<ListPage />} />
+            <Route
+              path="/pokemon/:pokemonName"
+              element={<DetailPage addPokeVisitDispatch={dispatch} />}
+            />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route
+              path="/uncontrolled-form-demo"
+              element={<UncontrolledFormDemoPage />}
+            />
+            <Route
+              path="/controlled-form-demo"
+              element={<ControlledFormDemoPage />}
+            />
+            <Route index element={<Navigate to="/pokemon" replace />} />
+          </Routes>
+        </Router>
+      </UserContext.Provider>
+    </ErrorBoundary>
   );
 }
-
-export default App;

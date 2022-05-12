@@ -1,0 +1,17 @@
+.root {
+  animation: fade 0.2s;
+}
+
+.sprite {
+  height: 96px;
+  opacity: 0;
+
+  &.loaded {
+    animation: fade 0.4s forwards;
+  }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
