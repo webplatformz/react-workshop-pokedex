@@ -5,22 +5,20 @@ import { PokemonDetail } from "./types";
 function usePokeDetail(pokemonName: string): PokemonDetail | null {
   const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);
   useEffect(() => {
-    let cancelled = false;
+    const controller = new AbortController();
     (async () => {
       const res = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
+        { signal: controller.signal }
       );
       const pokemon = await res.json();
-      if (!cancelled) {
-        setPokemon({
-          ...pokemon,
-          stats: mapStats(pokemon.stats)
-        });
-      }
+
+      setPokemon({
+        ...pokemon,
+        stats: mapStats(pokemon.stats),
+      });
     })();
-    return () => {
-      cancelled = true;
-    };
+    return () => controller.abort();
   }, [pokemonName]);
 
   return pokemon;
