@@ -1,5 +1,4 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-import DefaultLayout from "../../shared/default-layout/DefaultLayout";
 
 let renderCount = 1;
 
@@ -21,7 +20,7 @@ function UncontrolledFormDemoPage(): JSX.Element {
   });
 
   return (
-    <DefaultLayout>
+    <>
       <h1>Uncontrolled Form Demo</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -32,7 +31,7 @@ function UncontrolledFormDemoPage(): JSX.Element {
         <p>Render Count: {renderCount}</p>
         <p>Saved Username: {username}</p>
       </form>
-    </DefaultLayout>
+    </>
   );
 }
 

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import DefaultLayout from "../../shared/default-layout/DefaultLayout";
 import usePokeDetail from "../../service/poke/usePokeDetail";
 import { AddPokeVisitAction } from "../../service/poke/usePokeVisit";
 import PokeDetail from "./poke-detail/PokeDetail";
@@ -31,13 +30,11 @@ function DetailPage({ addPokeVisitDispatch }: Props) {
   }
 
   return (
-    <DefaultLayout>
-      <PokeDetail
-        name={pokemon.name}
-        image={pokemon.sprites.front_shiny}
-        stats={pokemon.stats}
-      />
-    </DefaultLayout>
+    <PokeDetail
+      name={pokemon.name}
+      image={pokemon.sprites.front_shiny}
+      stats={pokemon.stats}
+    />
   );
 }
 

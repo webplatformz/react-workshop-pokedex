@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import DefaultLayout from "../../shared/default-layout/DefaultLayout";
 
 let renderCount = 1;
 
@@ -18,7 +17,7 @@ function ControlledFormDemoPage(): JSX.Element {
   });
 
   return (
-    <DefaultLayout>
+    <>
       <h1>Controlled Form Demo</h1>
       <div>
         <label htmlFor="controlled">Username</label>
@@ -30,7 +29,7 @@ function ControlledFormDemoPage(): JSX.Element {
         />
       </div>
       <p>Render Count: {renderCount}</p>
-    </DefaultLayout>
+    </>
   );
 }
 
