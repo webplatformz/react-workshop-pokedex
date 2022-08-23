@@ -1,3 +1,5 @@
+import styles from "./SearchPanel.module.scss";
+
 type Props = {
   searchTerm: string;
   onSearchChanged: (searchTerm: string) => void;
@@ -5,18 +7,18 @@ type Props = {
 
 function SearchPanel({ searchTerm, onSearchChanged }: Props) {
   return (
-    <>
-      <label htmlFor="searchTerm">Search:</label>
+    <div className={styles.root}>
+      <label htmlFor="searchTerm">Search</label>
       <input
         type="text"
         id="searchTerm"
         value={searchTerm}
-        placeholder="What pokemon are you looking for?"
+        placeholder="Pokemon name"
         onChange={(e) => {
           onSearchChanged(e.target.value);
         }}
       />
-    </>
+    </div>
   );
 }
 

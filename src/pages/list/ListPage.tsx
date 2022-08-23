@@ -1,10 +1,11 @@
-import { useState } from "react";
 import usePokeList from "../../service/poke/usePokeList";
 import PokeListEntry from "./poke-list-entry/PokeListEntry";
 import SearchPanel from "./search-panel/SearchPanel";
+import useDebouncedSearch from "./useDebouncedSearch";
 
 function ListPage() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const { searchTerm, setSearchTerm, debouncedSearchTerm } =
+    useDebouncedSearch("");
 
   const { pokemons, isLoading, error } = usePokeList();
   return (
@@ -13,7 +14,7 @@ function ListPage() {
       {!isLoading &&
         !error &&
         pokemons
-          ?.filter((p) => p.name.includes(searchTerm))
+          ?.filter((p) => p.name.includes(debouncedSearchTerm))
           .map((pokemon) => (
             <PokeListEntry key={pokemon.name} name={pokemon.name} />
           ))}
