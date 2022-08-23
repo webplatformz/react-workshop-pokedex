@@ -1,5 +1,6 @@
 // import { useEffect, useState } from "react";
 import useSWR from "swr";
+import { fetcher } from "../../core/fetcher";
 import { Pokemon, PokemonResultDto } from "./types";
 
 // old implementation which was 1:1 replaced by useSWR
@@ -22,15 +23,11 @@ function usePokeList(): Pokemon[] | null {
   return pokemons;
 }*/
 
-const fetcher = (input: RequestInfo, init: RequestInit) =>
-  fetch(input, init).then((res) => res.json());
-
 function usePokeList(): Pokemon[] | undefined {
   const { data: pokemons } = useSWR<PokemonResultDto>(
     "https://pokeapi.co/api/v2/pokemon?limit=1000",
     fetcher
   );
-
 
   return pokemons?.results;
 }
