@@ -12,7 +12,6 @@ type Props = {
 function PokeDetail({ name, image, stats }: Props) {
   // store whether the image has loaded - used for smooth fade in transition
   const [imageLoaded, setImageLoaded] = useState(false);
-  console.log({ stats });
   return (
     <div className={styles.root}>
       <img

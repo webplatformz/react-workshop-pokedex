@@ -1,6 +1,6 @@
-import { ApiStat, Stat } from "./types";
+import { StatDto, Stat } from "./types";
 
-function mapStats(apiStats: ApiStat[]): Stat[] {
+function mapStats(apiStats: StatDto[]): Stat[] {
   return apiStats.map(({ base_stat, stat: { name } }) => ({
     name,
     baseStat: base_stat,
