@@ -1,5 +1,5 @@
 // import { useEffect, useState } from "react";
-import useSWR from "swr";
+import { useQuery } from "@tanstack/react-query";
 import { fetcher } from "../../core/fetcher";
 import { Pokemon, PokemonResultDto } from "./types";
 
@@ -24,9 +24,8 @@ function usePokeList(): Pokemon[] | null {
 }*/
 
 function usePokeList(): Pokemon[] | undefined {
-  const { data: pokemons } = useSWR<PokemonResultDto>(
-    "https://pokeapi.co/api/v2/pokemon?limit=1000",
-    fetcher
+  const { data: pokemons } = useQuery(["todos"], () =>
+    fetcher<PokemonResultDto>("https://pokeapi.co/api/v2/pokemon?limit=1000")
   );
 
   return pokemons?.results;
