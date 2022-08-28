@@ -4,9 +4,15 @@ import { fetcher } from "../../core/fetcher";
 import mapStats from "./mapStats";
 import { PokemonDetail, PokemonDetailDto } from "./types";
 
-function usePokeDetail(pokemonName: string): PokemonDetail | undefined {
+type Result = {
+  pokemon?: PokemonDetail;
+  isLoading: boolean;
+  error: unknown;
+};
+
+function usePokeDetail(pokemonName: string): Result {
   const uri = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
-  const { data } = useQuery(["pokemon", "detail"], () =>
+  const { data, isLoading, error } = useQuery(["pokemon", "detail"], () =>
     fetcher<PokemonDetailDto>(uri)
   );
 
@@ -15,7 +21,7 @@ function usePokeDetail(pokemonName: string): PokemonDetail | undefined {
     [data]
   );
 
-  return pokemon;
+  return { pokemon, isLoading, error };
 }
 
 export default usePokeDetail;
