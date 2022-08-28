@@ -15,3 +15,14 @@ export type Pokemon = {
 export type PokemonResultDto = {
   results: Pokemon[];
 };
+
+export type PokemonDetailDto = Omit<PokemonDetail, "stats"> & {
+  stats: ApiStat[];
+};
+
+export type ApiStat = {
+  base_stat: number;
+  stat: {
+    name: string;
+  };
+};
