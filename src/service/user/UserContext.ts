@@ -10,11 +10,11 @@ type UserContextValue = {
   setUserData: (userData: UserData) => void;
 };
 
-const UserContext = createContext<UserContextValue | null>(null);
+const UserContext = createContext<UserContextValue | undefined>(undefined);
 
 export function useUserContext(): UserContextValue {
   const context = useContext(UserContext);
-  if (context === null) {
+  if (!context) {
     throw new Error(
       "useUserContext must be consumed within a UserContext.Provider"
     );
