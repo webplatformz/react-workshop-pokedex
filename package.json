@@ -4,6 +4,7 @@
   "description": "Demo application for the essential react course.",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^4.2.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
@@ -18,7 +19,6 @@
     "react-router-dom": "6.2.1",
     "react-scripts": "5.0.1",
     "sass": "^1.51.0",
-    "swr": "1.2.2",
     "typescript": "^4.6.4",
     "web-vitals": "^2.1.4"
   },

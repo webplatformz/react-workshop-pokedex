@@ -1,38 +1,23 @@
-// import { useEffect, useState } from "react";
-import useSWR from "swr";
+import { useQuery } from "@tanstack/react-query";
+import { fetcher } from "../../core/fetcher";
 import { Pokemon, PokemonResultDto } from "./types";
 
-// old implementation which was 1:1 replaced by useSWR
-/*
-function usePokeList(): Pokemon[] | null {
-  const [pokemons, setPokemons] = useState<Pokemon[] | null>(null);
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=50");
-      const pokemons = (await res.json()) as PokemonResultDto;
-      if (!cancelled) {
-        setPokemons(pokemons.results);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-  return pokemons;
-}*/
+type Result = {
+  pokemons?: Pokemon[];
+  isLoading: boolean;
+  error: unknown;
+};
 
-const fetcher = (input: RequestInfo, init: RequestInit) =>
-  fetch(input, init).then((res) => res.json());
-
-function usePokeList(): Pokemon[] | undefined {
-  const { data: pokemons } = useSWR<PokemonResultDto>(
-    "https://pokeapi.co/api/v2/pokemon?limit=1000",
-    fetcher
+function usePokeList(): Result {
+  const {
+    data: pokemons,
+    isLoading,
+    error,
+  } = useQuery(["pokemon", "list"], () =>
+    fetcher<PokemonResultDto>("https://pokeapi.co/api/v2/pokemon?limit=1000")
   );
 
-
-  return pokemons?.results;
+  return { pokemons: pokemons?.results, isLoading, error };
 }
 
 export default usePokeList;

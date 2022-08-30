@@ -1,11 +1,14 @@
 export type Stat = { name: string; baseStat: number };
 
-export type PokemonDetail = {
+type PokemonDetailBase = {
   name: string;
-  stats: Stat[];
   sprites: {
     front_shiny: string;
   };
+};
+
+export type PokemonDetail = PokemonDetailBase & {
+  stats: Stat[];
 };
 
 export type Pokemon = {
@@ -14,4 +17,15 @@ export type Pokemon = {
 
 export type PokemonResultDto = {
   results: Pokemon[];
+};
+
+export type PokemonDetailDto = PokemonDetailBase & {
+  stats: StatDto[];
+};
+
+export type StatDto = {
+  base_stat: number;
+  stat: {
+    name: string;
+  };
 };

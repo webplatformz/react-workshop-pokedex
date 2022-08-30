@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { fetcher } from "../../core/fetcher";
 import mapStats from "./mapStats";
-import { PokemonDetail } from "./types";
+import { PokemonDetail, PokemonDetailDto } from "./types";
 
-function usePokeDetail(pokemonName: string): PokemonDetail | null {
-  const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);
-  useEffect(() => {
-    const controller = new AbortController();
-    (async () => {
-      const res = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
-        { signal: controller.signal }
-      );
-      const pokemon = await res.json();
+type Result = {
+  pokemon?: PokemonDetail;
+  isLoading: boolean;
+  error: unknown;
+};
 
-      setPokemon({
-        ...pokemon,
-        stats: mapStats(pokemon.stats),
-      });
-    })();
-    return () => controller.abort();
-  }, [pokemonName]);
+function usePokeDetail(pokemonName: string): Result {
+  const uri = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
+  const { data, isLoading, error } = useQuery(["pokemon", "detail"], () =>
+    fetcher<PokemonDetailDto>(uri)
+  );
 
-  return pokemon;
+  const pokemon: PokemonDetail | undefined = useMemo(
+    () => (data ? { ...data, stats: mapStats(data.stats) } : undefined),
+    [data]
+  );
+
+  return { pokemon, isLoading, error };
 }
 
 export default usePokeDetail;
