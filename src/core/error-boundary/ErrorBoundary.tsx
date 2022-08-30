@@ -36,7 +36,6 @@ class ErrorBoundary extends Component<
 
   render() {
     if (this.state.hasError) {
-      console.error(this.state.error);
       return (
         <DefaultLayout>
           <h2>A wild error appeared</h2>
