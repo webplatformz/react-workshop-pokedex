@@ -16,7 +16,7 @@ function DetailPage({ addPokeVisitDispatch }: Props) {
   const { pokemonName } = useParams<Params>();
   if (!pokemonName) throw new Error("pokemonName is not set");
 
-  const { pokemon, isLoading, error } = usePokeDetail(pokemonName);
+  const { data: pokemon, isLoading, isError } = usePokeDetail(pokemonName);
 
   useEffect(() => {
     addPokeVisitDispatch({
@@ -25,11 +25,13 @@ function DetailPage({ addPokeVisitDispatch }: Props) {
     });
   }, [addPokeVisitDispatch, pokemonName]);
 
+  if (isLoading) return <div>LOADING</div>;
+  if (isError)
+    return <div>ERROR loading Pokemon with name '{pokemonName}'</div>;
+
   return (
     <>
-      {isLoading && <span>LOADING</span>}
-      {error && <span>ERROR loading Pokemon with name '{pokemonName}'</span>}
-      {!isLoading && pokemon && (
+      {pokemon && (
         <PokeDetail
           name={pokemon.name}
           image={pokemon.sprites.front_shiny}
