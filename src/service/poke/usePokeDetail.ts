@@ -12,8 +12,9 @@ type Result = {
 
 function usePokeDetail(pokemonName: string): Result {
   const uri = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
-  const { data, isLoading, error } = useQuery(["pokemon", "detail"], () =>
-    fetcher<PokemonDetailDto>(uri)
+  const { data, isLoading, error } = useQuery(
+    ["pokemon", "detail", pokemonName],
+    () => fetcher<PokemonDetailDto>(uri)
   );
 
   const pokemon: PokemonDetail | undefined = useMemo(
