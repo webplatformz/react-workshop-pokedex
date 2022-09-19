@@ -1,18 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { fetcher } from "../../core/fetcher";
 import mapStats from "./mapStats";
 import { PokemonDetail, PokemonDetailDto } from "./types";
 
-type Result = {
-  pokemon?: PokemonDetail;
-  isLoading: boolean;
-  error: unknown;
-};
+type Result = Pick<
+  UseQueryResult<PokemonDetail, unknown>,
+  "data" | "isError" | "isLoading"
+>;
 
 function usePokeDetail(pokemonName: string): Result {
   const uri = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
-  const { data, isLoading, error } = useQuery(
+  const { data, isLoading, isError } = useQuery(
     ["pokemon", "detail", pokemonName],
     () => fetcher<PokemonDetailDto>(uri)
   );
@@ -22,7 +21,7 @@ function usePokeDetail(pokemonName: string): Result {
     [data]
   );
 
-  return { pokemon, isLoading, error };
+  return { data: pokemon, isLoading, isError };
 }
 
 export default usePokeDetail;

@@ -6,9 +6,9 @@ type Props = {
 
 function PokeListEntry({ name }: Props) {
   return (
-    <div className="uppercase">
+    <li className="uppercase">
       <Link to={`/pokemon/${name}`}>{name}</Link>
-    </div>
+    </li>
   );
 }
 
