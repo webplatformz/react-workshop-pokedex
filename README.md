@@ -1,3 +1,8 @@
+# (DEPRECATED) React Workshop Pokedex
+
+This repository was part of the course of essentials react (slides: https://github.com/webplatformz/react-training-slides-v2) and represents a rarely used implementation based on outdated Create React App. 
+In the course, we will not be using this sample repository anymore, thus it will not be migrated to vite anymore.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
